@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chill Campfire Under Starry Night</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #050510;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Khung cảnh đêm camping */
+    .scene {
+      position: relative;
+      width: 850px;
+      height: 520px;
+      background: linear-gradient(180deg, #070b19 0%, #121b35 60%, #1e112a 100%);
+      border-radius: 20px;
+      box-shadow: 0 0 60px rgba(255, 140, 0, 0.15);
+      overflow: hidden;
+      border: 1px solid #2d2b52;
+    }
+
+    /* Mặt trăng tỏa sáng */
+    .moon {
+      position: absolute;
+      top: 40px;
+      right: 80px;
+      width: 65px;
+      height: 65px;
+      background: #fff8e7;
+      border-radius: 50%;
+      box-shadow: 0 0 35px #fff8e7, 0 0 70px rgba(255, 248, 231, 0.4);
+    }
+
+    /* Rặng núi phía xa */
+    .mountains {
+      position: absolute;
+      bottom: 120px;
+      width: 100%;
+      height: 180px;
+    }
+
+    .mountain {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 180px solid transparent;
+      border-right: 180px solid transparent;
+      border-bottom: 150px solid #0d1326;
+    }
+
+    .mountain:nth-child(1) { left: -50px; border-bottom-width: 170px; }
+    .mountain:nth-child(2) { left: 180px; border-bottom-width: 200px; border-bottom-color: #090e1c; }
+    .mountain:nth-child(3) { right: -40px; border-bottom-width: 160px; }
+
+    /* Rừng thông mờ ảo */
+    .trees {
+      position: absolute;
+      bottom: 100px;
+      width: 100%;
+      height: 80px;
+      background: repeat-x bottom;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .tree {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 50px solid #080a14;
+    }
+
+    /* Mặt đất */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 110px;
+      background: linear-gradient(180deg, #111526 0%, #080912 100%);
+      border-top: 2px solid #1c223d;
+    }
+
+    /* Lều cắm trại */
+    .tent {
+      position: absolute;
+      bottom: 85px;
+      left: 140px;
+      width: 0;
+      height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 110px solid #e17055;
+    }
+
+    .tent-door {
+      position: absolute;
+      bottom: -110px;
+      left: -25px;
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 80px solid #2d3436;
+    }
+
+    /* Ngọn lửa trại */
+    .campfire {
+      position: absolute;
+      bottom: 80px;
+      right: 260px;
+      width: 60px;
+      height: 60px;
+    }
+
+    .log {
+      position: absolute;
+      bottom: 0;
+      width: 50px;
+      height: 12px;
+      background: #5c3d2e;
+      border-radius: 6px;
+    }
+
+    .log:nth-child(1) { transform: rotate(18deg); }
+    .log:nth-child(2) { transform: rotate(-18deg); }
+
+    .flame {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      width: 30px;
+      height: 45px;
+      background: linear-gradient(0deg, #ff7675 0%, #fdcb6e 100%);
+      border-radius: 50% 50% 20% 20%;
+      filter: blur(1px);
+      box-shadow: 0 0 25px #ff7675, 0 0 50px #fdcb6e;
+      animation: burn 0.4s infinite alternate ease-in-out;
+    }
+
+    .flame-inner {
+      position: absolute;
+      bottom: 10px;
+      left: 22px;
+      width: 16px;
+      height: 28px;
+      background: #ffeaa7;
+      border-radius: 50% 50% 20% 20%;
+      animation: burnInner 0.3s infinite alternate ease-in-out;
+    }
+
+    @keyframes burn {
+      0% { transform: scaleY(1) scaleX(1) rotate(-2deg); }
+      100% { transform: scaleY(1.15) scaleX(0.9) rotate(2deg); }
+    }
+
+    @keyframes burnInner {
+      0% { transform: scaleY(1) rotate(1deg); }
+      100% { transform: scaleY(1.2) rotate(-1deg); }
+    }
+
+    /* Đom đóm bay quanh */
+    .firefly {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #55efc4;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #55efc4, 0 0 15px #55efc4;
+      animation: floatFirefly 4s infinite ease-in-out;
+    }
+
+    @keyframes floatFirefly {
+      0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+      50% { transform: translate(25px, -30px); opacity: 1; }
+    }
+
+    /* Khung chữ Quote Chill */
+    .quote-box {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      color: #dfe6e9;
+      font-size: 14px;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 320px;
+    }
+
+    /* Sao lấp lánh */
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle linear infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene" id="scene">
+    <!-- Mặt trăng & Rặng núi -->
+    <div class="moon"></div>
+    <div class="mountains">
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+    </div>
+
+    <!-- Hàng cây thông -->
+    <div class="trees">
+      <div class="tree"></div><div class="tree"></div><div class="tree"></div>
+      <div class="tree"></div><div class="tree"></div><div class="tree"></div>
+      <div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    </div>
+
+    <!-- Mặt đất -->
+    <div class="ground"></div>
+
+    <!-- Lều trại -->
+    <div class="tent">
+      <div class="tent-door"></div>
+    </div>
+
+    <!-- Lửa trại -->
+    <div class="campfire">
+      <div class="log"></div>
+      <div class="log"></div>
+      <div class="flame"></div>
+      <div class="flame-inner"></div>
+    </div>
+
+    <!-- Khung thông điệp chill -->
+    <div class="quote-box">
+      ✨ <span id="quoteText">Gạt bỏ âu lo, tận hưởng đêm sao...</span>
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById('scene');
+
+    // 1. Tạo bầu trời sao tự động
+    for (let i = 0; i < 70; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.top = Math.random() * 60 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (Math.random() * 3 + 1.5) + 's';
+      scene.appendChild(star);
+    }
+
+    // 2. Tạo đom đóm bay quanh lửa trại
+    for (let i = 0; i < 12; i++) {
+      const firefly = document.createElement('div');
+      firefly.classList.add('firefly');
+      firefly.style.bottom = (Math.random() * 120 + 70) + 'px';
+      firefly.style.right = (Math.random() * 200 + 180) + 'px';
+      firefly.style.animationDelay = (Math.random() * 3) + 's';
+      firefly.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      scene.appendChild(firefly);
+    }
+
+    // 3. Đổi câu quote ngẫu nhiên
+    const quotes = [
+      "Gạt bỏ âu lo, tận hưởng đêm sao...",
+      "Đôi khi chậm lại một chút để cảm nhận cuộc sống.",
+      "Lắng nghe tiếng lửa trại & giai điệu của đêm.",
+      "Chill một chút rồi mai lại tiếp tục cố gắng nhé!"
+    ];
+    let qIdx = 0;
+    setInterval(() => {
+      qIdx = (qIdx + 1) % quotes.length;
+      document.getElementById('quoteText').innerText = quotes[qIdx];
+    }, 4500);
+  </script>
+</body>
+</html>
